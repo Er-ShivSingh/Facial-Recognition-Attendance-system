@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Attendance </title>
+</head>
+<style>
+    * {
+        margin: 0;
+    }
+
+    body {
+        background-image: url(https://www.lystloc.com/blog/wp-content/uploads/2022/11/ezgif.com-gif-maker-6.webp);
+        background-size: cover;
+
+    }
+
+    .webcam-video {
+        background-color: rgba(255, 255, 255, .5);
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .webcam-data {
+        background-color: rgba(255, 255, 255, .8);
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .webcam-video-live {
+        width: 100%;
+        height: 400px;
+    }
+
+    .capture {
+        border: 0;
+        font-size: 25px;
+        background: rgba(57, 57, 57, 0.792);
+        color: white;
+        box-shadow: 0 0 3px 6px white;
+        padding: 5px 20px;
+        border-radius: 7px;
+        font-weight: bold;
+    }
+
+    .captured-image {
+        border-radius: 50%;
+        box-shadow: 0 0 4px 8px black;
+        height: 200px;
+        width: 320px;
+        margin: auto;
+    }
+
+    .student-data {
+        margin: 40px 0 0 20px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .student-data tr th {
+        text-align: left;
+        font-size: 20px;
+        width: 160px;
+    }
+    .student-data tr td{
+        text-align: left;
+    }
+
+</style>
+
+<body>
+    {% include 'user_navigation.html' %}
+    <div class="row m-auto justify-content-around">
+        <div class="col-5 webcam-video text-center">
+            <video id="video" playsinline autoplay class="webcam-video-live"></video>
+            <button id="snap" class="capture"><i class="fa-solid fa-camera-retro"></i> Capture</button>
+        </div>
+        <div class="col-5 webcam-data text-center">
+            <form method="post" enctype="multipart/form-data" >
+                {% csrf_token %}
+                <canvas id="canvas" width="300" height="200" value="cpimage" name="cpimage" class="captured-image d-none"></canvas>
+                <div id="cimg" class="captured-image">
+                     <input type="text" required id="imagevalue" name="user-photo" class="d-none">
+                </div>
+                <div class="student-data">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Name </th>
+                            <td> : {{data.first_name}} {{data.last_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Roll Number </th>
+                            <td> : {{data2.rno}}</td>
+                        </tr>
+                        <tr>
+                            <th>Course </th>
+                            <td> : {{data2.course}}</td>
+                        </tr>
+                        <tr>
+                            <th>Date </th>
+                            <td> : {{date}}</td>
+                        </tr>
+                    </table>
+                    <input type="submit" class="capture mt-1" onclick="return attsub()" style="border: 1px solid black;">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <script>
+        function attsub(){
+            let d = document.getElementById('imagevalue').value;
+            if (d.length<1){
+                alert("Click Your Photo Then Mark Your Attendance")
+                return false;
+            }
+            return true;
+        }
+
+        'use strict';
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const snap = document.getElementById('snap');
+        const errorMsgElement = document.getElementById('span#ErrorMsg');
+        const constraints = {
+            video: {
+                width: 980, height: 720
+            }
+        };
+        async function init() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                handleSuccess(stream);
+            }
+            catch (e) {
+                errorMsgElement.innerHTML
+                    = `navigator.getUserMedia.error:${e.toString()}`;
+            }
+        }
+        function handleSuccess(stream) {
+            window.stream = stream;
+            video.srcObject = stream;
+        }
+        init();
+        var context = canvas.getContext('2d');
+        snap.addEventListener("click", function () {
+            let proimg = context.drawImage(video, 0, 0, 300, 200);
+            const element = document.getElementById("removeimage");
+            if (element){
+                element.remove();
+            }
+            const fileInput = document.querySelector('input[type="file"]');
+            const dataTransfer = new DataTransfer();
+            const myFile = new File(['Hello World!'], canvas.toDataURL("proimg"), {
+            type: 'text/plain',
+            lastModified: new Date(),
+        });
+            let img = document.createElement("img");
+            img.src =  canvas.toDataURL("proimg");
+            imagevalue.value = canvas.toDataURL("proimg");
+            img.className = "captured-image";
+            img.name = "mari-photo";
+            img.id = "removeimage";
+            cimg.appendChild(img);
+            cimg.appendChild(filed);
+        });
+        
+        
+    </script>
+</body>
+
+</html>
+
+{% if error == "present" %}
+<script>
+    alert("You already Mark Today's Attendance")
+    window.location = ("{% url 'view_attendance' %}")
+</script>
+{% endif %}
+
+{% if error == "no" %}
+<script>
+    alert("Addendance Marked Successfully")
+    window.location = ("{% url 'view_attendance' %}")
+</script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+    alert("Something Went Wrong...")
+</script>
+{% endif %}
+

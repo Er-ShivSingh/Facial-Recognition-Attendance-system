@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'admin_navigation.html' %}
+    <title>Document</title>
+    <style>
+        body{
+            background-image: url(https://digital.netaccess-india.com/images/InnerImage/FFA_Pic1.jpg);
+            background-size: cover;
+        }
+        .data-main {
+            border: 1px solid black;
+            padding: 5px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.858);
+        }
+        tr{
+            text-align: center;
+            vertical-align: middle;
+        }
+        .face{
+            height: 60px;
+            width: 120px;
+            border-radius: 50%;
+        }
+        .date{
+            border-radius: 7px;
+            background: rgba(255, 255, 255, 0.465);
+            margin: 30px 0 10px 0;
+            font-size: 40px;
+            text-align: center;
+            text-decoration: underline;
+            font-weight: bold;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row m-auto justify-content-center">
+        <div class="col-10 mt-4 data-base align-center">
+            {% for i in date %}
+            <div class="date">{{i.date}} {{i.day}}</div>
+            <div class="data-main">
+                
+                <table class="table table-bordered">
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Name</th>
+                        <th>Roll No.</th>
+                        <th>Email</th>
+                        <th>Course</th>
+                        <th>Face</th>
+                        <th>Attendance</th>
+                    </tr>
+                    {% for j in data3 %}
+                    {% if i.date == j.date %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{ j.name }}</td>
+                        <td>{{ j.rollno }}</td>
+                        <td>{{ j.email }}</td>
+                        <td>{{ j.course }}</td>
+                        <td><img src="{{j.image}}" alt="" class="face"></td>
+                        <td>{{ j.status }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+
+{% include 'footer.html' %}

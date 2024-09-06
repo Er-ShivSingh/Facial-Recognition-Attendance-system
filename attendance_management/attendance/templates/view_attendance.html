@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+<style>
+    body{
+        background-image:url(https://emergesystemtek.com/images/services/004-large-time-attendance-system.jpg);
+        background-size:100% 100%;
+    }
+    .attendance-main{
+        background: rgba(255, 255, 255,.9);
+        border-radius: 10px;
+        padding: 5px;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    .search-form input{
+        background-image: url(https://static.vecteezy.com/system/resources/thumbnails/002/272/237/small/search-icon-simple-free-illustration-free-vector.jpg);
+        background-position: 95% 10px; 
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        outline: none;
+        padding-left:25px;
+        font-size: 20px;
+        margin: 5px 0;
+        border-radius: 5px;
+        padding: 3px 20px;
+        width: 40%;
+    }
+    .search-form a{
+        margin-bottom: 8px;
+    }
+</style>
+</head>
+<body>
+    {% include 'user_navigation.html' %}
+<div class="row m-auto justify-content-center">
+    <div class="col-10 attendance-main mt-4">
+        <form method="POST" action="/searchday" class="search-form"> 
+            {% csrf_token %}
+            <input type="text" name="name2" placeholder="Search Attendance by Date">
+            <a href="{% url 'view_attendance' %}"
+                class="btn btn-dark">Cancel</a>
+        </form>
+        <table class="table">
+            <tr>
+                <th>S.No.</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Roll Number</th>
+                <th>Date</th>
+                <th>Image</th>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <th>{{forloop.counter}}</th>
+                <th>{{i.name}}</th>
+                <th>{{i.email}}</th>
+                <th>{{i.course}}</th>
+                <th>{{i.date}}</th>
+                <th><img src="{{i.image}}" alt="" style="height: 70px;width: 150px;border-radius: 50%;"></th>
+            </tr>
+            {% endfor %}
+        </table>
+        {% if not data %}
+            <h1 align="center">No Data Found</h1>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>
+
+{% include 'footer.html' %}

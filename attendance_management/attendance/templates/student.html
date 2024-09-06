@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+<style>
+    body{
+        /* background: linear-gradient(to right, rgb(214, 245, 245),rgb(248, 233, 233)); */
+        background-image: url(https://www.jio.com/business/en-in/jioattendance-desktop.jpg);
+        background-size: 100% 100%;
+    }
+    .profile{
+        height: 200px;
+        width: 400px;
+        margin: auto;
+        border-radius: 50%;
+        box-shadow: 0 0 5px 8px lightgrey;
+    }
+    .profile-main{
+        background: rgba(220, 220, 218, 0.8);
+        padding: 20px 5px;
+        border-radius: 10px;
+    }
+    .table{
+        margin-left: 25%;
+        width: 400px;
+        font-size: 25px;
+    }
+    .table th{
+        text-align: left;
+    }
+</style>
+</head>
+<body>
+    {% include 'admin_navigation.html' %}
+    <div class="row m-auto justify-content-center">
+        <div style="font-size: 40px;text-align: center;font-family: copperplate gothic;font-weight: bold;text-decoration: underline;">Student Detail</div>
+        <div class="col-8 text-center profile-main">
+            <img src="{{data2.image.url}}" alt="" class="profile">
+            <table class="table table-borderless">
+                <tr>
+                    <th>Name</th>
+                    <th>: {{data.first_name}} {{data.last_name}}</th>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <th>: {{data.username}}</th>
+                </tr>
+                <tr>
+                    <th>Contact</th>
+                    <th>: {{data2.mobile}}</th>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <th>: {{data2.gender}}</th>
+                </tr>
+                <tr>
+                    <th>Course</th>
+                    <th>: {{data2.course}}</th>
+                </tr>
+                <tr>
+                    <th>Roll No.</th>
+                    <th>: {{data2.rno}}</th>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <th>: {{data2.address}}</th>
+                </tr>
+            </table>
+            <a href="{% url 'view_students' %}" class="btn btn-dark btn-lg"><i class="fa-solid fa-left-long"></i> Back</a>
+        </div>
+    </div>
+</body>
+</html>

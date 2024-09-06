@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<title></title>
+    {% load static %}
+<style>
+  *{
+    margin: 0px;
+    list-style: none;
+    padding: 0px;
+    
+  }
+  .navigation-a{
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    padding: 5px 20px;
+    font-weight: bold;
+    font-size: 22px;
+    transition: all .5s;
+    font-family:copperplate gothic;
+  }
+  .navigation-a:hover{
+    color: black;
+    background: #cdcbdb;
+    color: black;
+    border-radius: 10px;
+  }
+
+  .logoi{
+    padding-left: 35px;
+    font-weight: bold;
+    font-size: 30px;
+    text-shadow: 5px 5px 3px white,-5px -5px 3px white;
+    color: rgb(0, 201, 0);
+  }
+  .logoii{
+    padding-left: 30px;
+    font-size: 30px;
+  }
+  .menulogo{
+    text-align: center;
+    padding-right: 40px;
+    font-weight: bold;
+    font-size: 30px;
+    transition: all .3s;
+  }
+  .menulogo:hover{
+    font-weight: bold;
+    border-radius: 10px;
+  }
+  .dropitem{
+    color: black;
+  }
+  .dropdown-item{
+    font-weight: bold;
+  }
+  .dropdown-menu{
+    background: #DCD8FF;
+    padding: 0px;
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+<div class="row m-auto text-warning" style="background: linear-gradient(to right,yellow, red);">
+    <div class="col-3 d-none d-md-block logoi">
+      <!-- <img src="https://www.bdcollege.ac.in/upload/attendance.jpg" height="30" width="100"> -->
+      <i class="fa-solid fa-camera-rotate"></i>
+    </div>
+    <div class="col-md-4 d-block d-md-none">
+      <div class="row">
+        <div class="col-3 logoii">
+            <!-- <img src="https://thumbs.dreamstime.com/b/attendance-icon-presence-249573607.jpg" height="30" width="100"> -->
+            <i class="fa-solid fa-camera-rotate"></i>
+        </div>
+        <div class="col-9 text-end menulogo">
+          <a type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-bars menulogo"></i></a>
+          <ul class="dropdown-menu">
+                <li><a href="{% url 'admin_home' %}" class="dropdown-item ">Home</a></li>
+                <li><a href="{% url 'view_students' %}" class="dropdown-item ">Students</a></li>
+                <li><a href="{% url 'all_attendance' %}" class="dropdown-item ">Attendance</a></li>
+                <li><a href="{% url 'view_feedback' %}" class="dropdown-item ">Feedback</a></li>
+                <li><a href="{% url 'logout' %}" class="dropdown-item ">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-9 d-none d-md-block">
+      <ul class="list-group list-group-horizontal justify-content-end" style="margin-top: 7px;">
+        <li class="menui"><a class="navigation-a" href="{% url 'admin_home' %}">Home</a></li>
+        <li class="menui"><a class="navigation-a" href="{% url 'view_students' %}">Students</a></li>
+        <li class="menui"><a class="navigation-a" href="{% url 'all_attendance' %}">Attendance</a></li>
+        <li class="menui"><a class="navigation-a" href="{% url 'view_feedback' %}">Feedback</a></li>
+        <li class="menui"><a class="navigation-a" href="{% url 'logout' %}">Logout</a></li>
+      </ul>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <style>
+        body {
+            background-image: url(https://d2slcw3kip6qmk.cloudfront.net/marketing/blog/2019Q1/giving-feedback/how-to-give-feedback-header@2x.png);
+            background-size: 100% 100%;
+        }
+
+        .feedback-main {
+            background: rgba(224, 255, 255, 0.774);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .feedback-heading {
+            font-size: 40px;
+            font-weight: bold;
+            text-decoration: underline;
+            margin: 5px 0 15px 0;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .feedback-input {
+            display: block;
+            width: 80%;
+            margin: auto;
+            padding: 5px 20px;
+            font-size: 20px;
+            border-radius: 4px;
+            resize: none;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'user_navigation.html' %}
+    <div class="row m-auto justify-content-center">
+        <div class="col-6 mt-4 feedback-main text-center">
+            <div class="feedback-heading">Write your Feedback</div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Enter your Name" class="feedback-input"
+                    value="{{request.user.first_name}} {{request.user.last_name}}">
+                <input type="text" name="email" placeholder="Enter your Email" class="feedback-input"
+                    value="{{request.user.username}}">
+                <input type="number" name="contact" placeholder="Enter your Name" class="feedback-input" required>
+                <textarea name="feedback" placeholder="Enter your Valuable Feedback" class="feedback-input"
+                    required></textarea>
+                <button type="submit" class="btn btn-primary btn-lg feedback-button mt-3"><i
+                        class="fa-regular fa-face-smile-beam"></i> Submit</button> <a href="{% url 'user_home' %}"
+                    class="btn btn-dark btn-lg mt-3"><i class="fa-solid fa-circle-left"></i> Back</a>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+
+{% if error == "no" %}
+<script>
+    alert("Feedback Submitted Successfully");
+    window.location = ("{% url 'user_home' %}")
+</script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+    alert("Something went wrong, Try again later...")
+    window.location = ("{% url 'user_home' %}")
+</script>
+{% endif %}
+
+
+{% include 'footer.html' %}

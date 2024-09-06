@@ -1,0 +1,152 @@
+{% load static %}
+
+{% block body %}
+
+{% include 'navigation.html' %}
+
+<script>
+    function checkpass() {
+        if (document.signup.pwd.value != document.signup.cpwd.value) {
+            alert('Password Does Not Match')
+            document.signup.cpwd.focus();
+            return false;
+        }
+        return true;
+    }
+    function validpayment() {
+        let fn = document.getElementById('fname').value;
+        if (!(fn.match(/^[A-Za-z\s]+$/))) {
+            alert("Enter Valid Your Name");
+            return false;
+        }
+        let con = document.getElementById('contact').value;
+        if (con.length != 10) {
+            alert("Contact Number Must be 10 digit");
+            return false;
+        }
+    }
+</script>
+<style>
+    body {
+        background-image: url(https://www.360connect.com/wp-content/uploads/2021/01/shutterstock_1263088447-scaled-e1626971254442-1024x683.jpg);
+        background-size: 100% 100%;
+    }
+</style>
+
+<hr>
+<div class="row m-auto justify-content-center">
+    <div class="col-1"> </div>
+    <div class="col-10 col-md-6"
+        style="background:rgba(211, 211, 211,.7);padding-left:10vw;border-radius:10px;padding-top:20px">
+        <form class="container m-auto" onsubmit="return checkpass();" name="signup" method="post"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <div class="form-group col-md-9">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter First Name"
+                        required>
+                </div>
+
+                <div class="form-group col-md-9">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" name="lname" placeholder="Enter Last Name" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-9">
+                    <label>Email ID:</label>
+                    <input type="text" class="form-control" name="email" placeholder="Enter Email Address" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-9">
+                    <label>Contact Number:</label>
+                    <input type="number" id="contact" class="form-control" name="contact"
+                        placeholder="Enter Phone Number" required>
+                </div>
+                <div class="form-group col-md-9">
+                    <label>Roll Number:</label>
+                    <input type="number" class="form-control" name="rollno"
+                        placeholder="Enter Your College Roll Number" required>
+                </div>
+                <div class="form-group col-md-9">
+                    <label>Date of Birth:</label>
+                    <input type="date" class="form-control" name="dob" required>
+                </div>
+                <div class="form-group col-md-9">
+                    <label>Course:</label>
+                    <select name="course" class="form-control">
+                        <option value="" disabled selected hidden>Select Your Course</option>
+                        <option value="BCA">BCA</option>
+                        <option value="MCA">MCA</option>
+                        <option value="B.Tech">B.Tech</option>
+                        <option value="M.tech">M.tech</option>
+                        <option value="Diploma">Diploma</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-9">
+                    <label>Password:</label>
+                    <input type="password" class="form-control" name="pwd" placeholder="Enter Password" required>
+                </div>
+
+                <div class="form-group col-md-9">
+                    <label>Confirm Password:</label>
+                    <input type="password" class="form-control" name="cpwd" placeholder="Confirm Password" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-9">
+                    <label>Gender</label>
+                    <div style="border:1px solid lightgrey ; padding:6px ; border-radius:6px">
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInLine1" name="gender" class="custom-control-input"
+                                value="Male">
+                            <label class="custom-control-label" for="customRadioInLine1">Male</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInLine2" name="gender" class="custom-control-input"
+                                value="Female">
+                            <label class="custom-control-label" for="customRadioInLine2">Female</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-9">
+                    <label>Image</label>
+                    <input type="file" class="form-control" name="image" required>
+                </div>
+                <div class="form-group col-md-9">
+                    <label>Address:</label>
+                    <input type="text" class="form-control" name="address" placeholder="Enter Your Address" required>
+                </div>
+            </div>
+            <input type="submit" value="Submit" class="btn btn-primary my-3" style="width:200px;margin-left: 100px;"
+                onclick="return validpayment()">
+        </form>
+    </div>
+</div>
+
+{% if error == "no" %}
+<script>
+    alert("Signup Successfully")
+    window.location = ("{% url 'login' %}")
+</script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+    alert("Something Wrong, Try Again...")
+</script>
+{% endif %}
+{% endblock %}
+
+{% include 'footer.html' %}

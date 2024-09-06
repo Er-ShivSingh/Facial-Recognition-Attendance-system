@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    {% include 'admin_navigation.html' %}
+<style>
+    body{
+        background-image: url(https://easyroster.net/wp-content/uploads/2021/11/EasyRoster-attendance-management-system-scaled.jpg);
+        background-size: 100% 100%;
+    }
+    table{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        background: rgba(255, 255, 255, 0.854);
+    }
+
+</style>
+</head>
+<body>
+    <div class="row m-auto justify-content-center">
+        <div align="center" style="text-align: center;font-size: 40px;font-weight: bold;font-family: copperplate gothic;text-decoration: underline;">All Students</div>
+        <div class="col-md-11" style="border: 1px solid black;border-radius: 5px;padding: 5px;">
+            <table class="table table-bordered">
+                <tr style="background: rgba(220, 220, 220, 0.795);text-align: center;font-size: 20px;font-family: 'Courier New', Courier, monospace;">
+                    <th>S.No.</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Roll No.</th>
+                    <th>Course</th>
+                    <th>BOB</th>
+                    <th>Address</th>
+                    <th>Profile</th>
+                    <th>Action</th>
+                </tr>
+                {% for i in data %}
+                <tr style="text-align: center;">
+                    <td valign="middle">{{forloop.counter}}</td>
+                    <th valign="middle">{{ i.user.first_name }} {{ i.user.last_name }}</th>
+                    <th valign="middle">{{ i.user.username }}</th>
+                    <th valign="middle">{{ i.rno }}</th>
+                    <th valign="middle">{{ i.course }}</th>
+                    <th valign="middle">{{ i.dob }}</th>
+                    <th valign="middle">{{ i.address }}</th>
+                    <th valign="middle"><img src="{{ i.image.url }}" height="80" alt=""></th>
+                    <th valign="middle">
+                        <a href="{% url 'student' i.user.id %}" class="btn btn-primary btn-sm">View</a><br>
+                        <a href="{% url 'present_user' i.user.id %}" class="btn btn-info btn-sm mt-2" ><i class="fa-solid fa-p"></i></a>
+                        <a href="{% url 'delete_user' i.user.id %}" class="btn btn-danger btn-sm mt-2" onclick="return confirm('Are you sure?')"><i class="fa-solid fa-trash-arrow-up"></i></a>
+                    </th>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+
+
+{% include 'footer.html' %}
